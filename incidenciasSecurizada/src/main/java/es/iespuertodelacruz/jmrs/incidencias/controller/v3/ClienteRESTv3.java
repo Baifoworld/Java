@@ -145,9 +145,6 @@ public class ClienteRESTv3 {
 		Usuario u = new Usuario();
 		u.setUsername(rDTO.getUsername());
 		u.setPassword(BCrypt.hashpw(rDTO.getPassword(), BCrypt.gensalt()));
-		/*Role rol = new Role();
-		rol.setId(2);
-//		u.setRole(rol);*/
 		u.setRole(rolService.findById(2).get());
 		Usuario nu = usuarioService.save(u);
 		
@@ -219,7 +216,6 @@ public class ClienteRESTv3 {
 			)
 	public ResponseEntity<?> getOpenTicketsClient(@PathVariable String id) {
 		ArrayList<Ticket> tickets = new ArrayList<Ticket>();
-		// logger.info("si queremos hacer debug por ejemplo");
 		ticketService.findOpenTicketsClient(id).forEach(p -> tickets.add((Ticket) p));
 		return ResponseEntity.ok().body(tickets);
 	}
