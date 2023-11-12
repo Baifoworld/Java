@@ -43,14 +43,13 @@ public class GestorRESTv3 {
 	@Autowired
 	RolService rolService;
 
-	@GetMapping // si queremos subruta lleva paréntesis
+	@GetMapping
 	@ApiOperation(
 			value = "Obtener Gestores",
 			notes = "Devuelve todos los gestores"
 			)
 	public ResponseEntity<?> getAll() {
 		ArrayList<Gestore> gestores = new ArrayList<Gestore>();
-		// logger.info("si queremos hacer debug por ejemplo");
 		gestorService.findAll().forEach(p -> gestores.add((Gestore) p));
 		return ResponseEntity.ok().body(gestores);
 	}
@@ -110,9 +109,6 @@ public class GestorRESTv3 {
 		Usuario u = new Usuario();
 		u.setUsername(gDTO.getUsername());
 		u.setPassword(BCrypt.hashpw(gDTO.getPassword(), BCrypt.gensalt()));
-		/*Role rol = new Role();
-		rol.setId(2);
-//		u.setRole(rol);*/
 		u.setRole(rolService.findById(1).get());
 		Usuario nu = usuarioService.save(u);
 		Gestore g = new Gestore();
