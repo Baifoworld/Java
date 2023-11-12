@@ -56,9 +56,6 @@ public class SeguimientoTicketRESTv2 {
 		
 		if(optCliente.isPresent()) {
 			Cliente c = optCliente.get();
-			/*
-			List<Ticket> tickets = optCliente.get().getTickets();
-			return ResponseEntity.ok().body(optCliente.get().getTickets());*/
 			Optional<SeguimientoTicket> seguiTickets = seguiTicketService.findById(id);
 			if(seguiTickets.isPresent()) {
 				SeguimientoTicket segui = seguiTickets.get();
@@ -164,6 +161,4 @@ public class SeguimientoTicketRESTv2 {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ha habido un error");
 		}
 	}
-	
-	//falta put
 }
