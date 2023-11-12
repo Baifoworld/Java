@@ -34,7 +34,6 @@ public class LoginController {
 	public ResponseEntity<?> login(@RequestParam("username") String username, 
 			@RequestParam("password") String pwd) {
 		
-		
 		String token = getJWTToken(username,pwd);
 		
 		//token nulo si usuario/pass no es válido
@@ -42,9 +41,7 @@ public class LoginController {
 			return ResponseEntity.ok(token);
 		}else
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("usuario/pass erróneos");
-		
 	}
-	
 	
 	static class UsuarioJsonLogin{
 		String username;
@@ -52,15 +49,12 @@ public class LoginController {
 		public String getUsername() { return username;};
 		public String getPassword() {return password;};
 		public void setName(String name ) {this.username = name;};
-		public void setPassword(String password ) {this.password = password;};
-			
+		public void setPassword(String password ) {this.password = password;};		
 	}
 	
 	/* json post */
 	@PostMapping(path = "/api/v1/login", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> login(@RequestBody UsuarioJsonLogin usuarioJson) {
-		
-		
 		String token = getJWTToken(usuarioJson.username, usuarioJson.password);
 		
 		//token nulo si usuario/pass no es válido
@@ -68,49 +62,35 @@ public class LoginController {
 			return ResponseEntity.ok(token);
 		}else
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-		
 	}	
 
 	@Autowired
 	UsuarioService usuarioService;
 	
-	
 	private String getJWTToken(String username, String passTextoPlanoRecibida) {
 		
-		String respuesta = null;
-		
+		String respuesta = null;	
 		GestorDeJWT gestorDeJWT = GestorDeJWT.getInstance();
-		
 		Usuario usuario = usuarioService.findByNick(username);
-
+        	String passwordUsuarioEnHash = "";
+        	boolean autenticado = false;
         
-        String passwordUsuarioEnHash = "";
-        boolean autenticado = false;
-        
-        if(usuario != null) { 
-        	passwordUsuarioEnHash = usuario.getPassword();
-        	
-        	autenticado = BCrypt.checkpw(passTextoPlanoRecibida, passwordUsuarioEnHash);
-        	logger.info(""+autenticado);
-        }
+        	if(usuario != null) { 
+        		passwordUsuarioEnHash = usuario.getPassword();
+        		autenticado = BCrypt.checkpw(passTextoPlanoRecibida, passwordUsuarioEnHash);
+        		logger.info(""+autenticado);
+        	}
 
-		if(autenticado) {
-			
+		if(autenticado) {	
 			String rol = usuario.getRole().getName();
 			List<String> roles = new ArrayList<String>(); 
 			roles.add(rol);
 			logger.info("los roles obtenidos: " + roles);
-			
-
 			int duracionMinutos = 600;
-			
 			String token = gestorDeJWT.generarToken(username, roles, duracionMinutos);
-			
 			respuesta = gestorDeJWT.BEARERPREFIX + token;			
 		}
 		
 		return respuesta;
-
 	}	
-
 }
