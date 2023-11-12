@@ -38,7 +38,6 @@ public class UsuarioRESTv3 {
 			)
 	public ResponseEntity<?> getAll() {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		// logger.info("si queremos hacer debug por ejemplo");
 		usuarioService.findAll().forEach(p -> usuarios.add((Usuario) p));
 		return ResponseEntity.ok().body(usuarios);
 	}
