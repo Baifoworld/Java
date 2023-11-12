@@ -17,8 +17,6 @@ public class RegisterAdminDTO {
 		this.dni = g.getDni();
 		this.nombre = g.getNombre();
 		this.apellidos = g.getApellidos();
-		/*this.username = c.getUsuario().getUsername();
-		this.password = c.getUsuario().getPassword();*/
 		this.id_rol = 1;
 	}
 
