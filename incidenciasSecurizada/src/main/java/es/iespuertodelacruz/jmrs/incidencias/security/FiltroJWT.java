@@ -47,7 +47,6 @@ public class FiltroJWT extends OncePerRequestFilter{
 
 		
 		}catch(Exception ex) {
-			//únicamente para debug.Luego comentar o quitar el printStackTrace()
 			ex.printStackTrace();
 			SecurityContextHolder.clearContext();
 
@@ -62,10 +61,6 @@ public class FiltroJWT extends OncePerRequestFilter{
 		@SuppressWarnings("unchecked")
 		List<String> authorities = (List) claims.get(gestorDeJWT.ROLSCLAIMS);
 
-		//la password no es importante
-		//lo único que se usará es el nombre del usuario
-		//y sus roles ( que viene todo en el token y no 
-		//precisa consulta adicional a DDBB )
 		UserDetails usuario = new User(claims.getSubject(), "1234", authorities.stream()
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList())
