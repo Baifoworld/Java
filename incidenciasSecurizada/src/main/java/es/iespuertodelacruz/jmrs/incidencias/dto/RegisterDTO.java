@@ -14,16 +14,6 @@ public class RegisterDTO {
 	private int id_rol;
 
 	public RegisterDTO() {}
-	/*
-	public RegisterDTO(Cliente c) {
-		this.idCliente = c.getIdCliente();
-		this.nombre = c.getNombre();
-		this.direccion = c.getDireccion();
-		this.telefono = c.getTelefono();
-		/*this.username = c.getUsuario().getUsername();
-		this.password = c.getUsuario().getPassword();**
-		this.id_rol = 2;
-	}*/
 
 	public String getidCliente() {
 		return idCliente;
