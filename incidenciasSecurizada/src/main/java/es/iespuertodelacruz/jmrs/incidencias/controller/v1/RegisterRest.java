@@ -47,9 +47,6 @@ public class RegisterRest {
 		Usuario u = new Usuario();
 		u.setUsername(rDTO.getUsername());
 		u.setPassword(BCrypt.hashpw(rDTO.getPassword(), BCrypt.gensalt()));
-		/*Role rol = new Role();
-		rol.setId(2);
-//		u.setRole(rol);*/
 		u.setRole(rolService.findById(2).get());
 		Usuario nu = usuarioService.save(u);
 		logger.info("id del usuario " +nu.getId());
