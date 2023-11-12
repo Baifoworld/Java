@@ -48,14 +48,13 @@ public class TicketRESTv3 {
 	@Autowired 
 	ClienteService clienteService;
 
-	@GetMapping // si queremos subruta lleva paréntesis
+	@GetMapping
 	@ApiOperation(
 			value = "Obtener Tickets",
 			notes = "Devuelve todos los tickets que hay en la Base Datos"
 			)
 	public ResponseEntity<?> getAll() {
 		ArrayList<Ticket> tickets = new ArrayList<Ticket>();
-		// logger.info("si queremos hacer debug por ejemplo");
 		ticketService.findAll().forEach(p -> tickets.add((Ticket) p));
 		return ResponseEntity.ok().body(tickets);
 	}
@@ -89,14 +88,7 @@ public class TicketRESTv3 {
 	public ResponseEntity<?> deleteTicketById(@PathVariable Integer id){
 		Optional<Ticket> optT = ticketService.findById(id);
 		
-		if(optT.isPresent()) {/*
-			Ticket ticket = optT.get();
-			List<SeguimientoTicket> lsST = seguiTicketService.findByIdTicket(ticket.getIdTicket());
-			
-			for (SeguimientoTicket seguimientoTicket : lsST) {
-				seguiTicketService.deleteById(seguimientoTicket.getIdSeguimiento());
-			}
-			*/
+		if(optT.isPresent()) {
 			ticketService.deleteById(id);
 			return ResponseEntity.ok("El Ticket ha sido eliminado");
 		}else {
@@ -197,7 +189,6 @@ public class TicketRESTv3 {
 			)
 	public ResponseEntity<?> getOpenTickets() {
 		ArrayList<Ticket> tickets = new ArrayList<Ticket>();
-		// logger.info("si queremos hacer debug por ejemplo");
 		ticketService.findOpenTickets().forEach(p -> tickets.add((Ticket) p));
 		return ResponseEntity.ok().body(tickets);
 	}
