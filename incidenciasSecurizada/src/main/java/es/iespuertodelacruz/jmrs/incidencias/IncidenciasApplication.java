@@ -60,10 +60,7 @@ public class IncidenciasApplication {
 			.antMatchers("/api/v2/**").hasRole("USER") 
 			.anyRequest().authenticated() ;
 			
-			//excepción para no autenticado ( token no válido)
-			//esta excepción no se  desencadena para roles incorrectos 
-			//la usamos  únicamente para para personalizar el mensaje 
-			//e informar de por qué no se ha dejado pasar la request 
+			//excepción para no autenticado ( token no válido) 
 			http
 			.exceptionHandling() 
 			.authenticationEntryPoint((request, response, e) -> 
