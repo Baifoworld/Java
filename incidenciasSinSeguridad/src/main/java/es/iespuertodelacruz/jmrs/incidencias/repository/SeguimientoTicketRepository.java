@@ -9,7 +9,5 @@ import org.springframework.data.repository.query.Param;
 import es.iespuertodelacruz.jmrs.incidencias.entity.SeguimientoTicket;
 
 public interface SeguimientoTicketRepository extends JpaRepository<SeguimientoTicket, Integer> {
-/*
-	@Query("SELECT st FROM SeguimientoTickets st where st.id_ticket = :idTicket")
-	List<SeguimientoTicket> findByIdTicket(@Param("idTicket") Integer id_Ticket);*/
+
 }
